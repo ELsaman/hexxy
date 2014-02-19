@@ -3,7 +3,6 @@
 
 MovementSequence::MovementSequence(bool inversed, bool infinite)
 {
-    //Serial.println("MovementSequence reset");
     for (int i=0; i<3; ++i)
         movement[i].clear();
 
@@ -39,26 +38,6 @@ void MovementSequence::Init()
 void DebugResetMovement::Init()
 {
     Serial.println("DebugResetMovement init");
-    //float speed = 1.0f;
-
-    
-
-
-    //movement[SEGMENT_TIBIA].push_back(Movement(40, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_FEMUR].push_back(Movement(150, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_COXA].push_back(Movement(90, 2.0f, 8000, _inversed));
-    //
-    //movement[SEGMENT_TIBIA].push_back(Movement(40, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_FEMUR].push_back(Movement(150, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_COXA].push_back(Movement(60, 2.0f, 8000, _inversed));
-    //
-    //movement[SEGMENT_TIBIA].push_back(Movement(40, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_FEMUR].push_back(Movement(150, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_COXA].push_back(Movement(120, 2.0f, 8000, _inversed));
-    //
-    //movement[SEGMENT_TIBIA].push_back(Movement(40, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_FEMUR].push_back(Movement(150, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_COXA].push_back(Movement(90, 2.0f, 8000, _inversed));
 
     int delay = 8000;
 
@@ -76,31 +55,4 @@ void DebugResetMovement::Init()
     movement[SEGMENT_TIBIA].push_back(Movement(90, 2.0f, delay, _inversed));
     movement[SEGMENT_FEMUR].push_back(Movement(80, 2.0f, delay, _inversed));
     movement[SEGMENT_COXA].push_back(Movement(90, 2.0f, delay, _inversed));
-
-    //movement[SEGMENT_TIBIA].push_back(Movement(120, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_FEMUR].push_back(Movement(60, 2.0f, 8000, _inversed));
-    //movement[SEGMENT_COXA].push_back(Movement(90, 2.0f, 8000, _inversed));
-
-    //movement[SEGMENT_TIBIA].push_back(Movement(90, 1.0f, 2000, _inversed));
-    //movement[SEGMENT_FEMUR].push_back(Movement(90, 1.0f, 2000, _inversed));
-    //movement[SEGMENT_COXA].push_back(Movement(90, 1.0f, 2000, _inversed));
-
-    //bool inversed = _inversed;
-    //    movement[SEGMENT_FEMUR].push_back(Movement(150, 2.0f, 5000, inversed));
-    //    movement[SEGMENT_FEMUR].push_back(Movement(120, 2.0f, 5000, inversed));
-    //    movement[SEGMENT_FEMUR].push_back(Movement(60, 2.0f, 5000, inversed));
-    //    movement[SEGMENT_FEMUR].push_back(Movement(90, 2.0f, 5000, inversed));
-
-    //int delay = 0;
-    //float speed = 3.0f;
-    //for (int i = 0; i < 8; ++i)
-    //{
-    //    movement[SEGMENT_COXA].push_back(Movement(150, speed * i/2, delay));
-    //    //movement[SEGMENT_FEMUR].push_back(Movement(150, speed, delay));
-    //    //movement[SEGMENT_COXA]. push_back(Movement(150, speed, delay));
-    //
-    //    movement[SEGMENT_COXA].push_back(Movement(30, speed * i/2, delay));
-    //    //movement[SEGMENT_FEMUR].push_back(Movement(30, speed, delay));
-    //    //movement[SEGMENT_COXA]. push_back(Movement(30, speed, delay));
-    //}
 }

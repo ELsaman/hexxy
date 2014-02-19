@@ -13,20 +13,6 @@ HexaLegSegment::HexaLegSegment(uint8_t _pin, int * valArray, bool digital, int d
 
     servo->attach(_pin, MIN_MICROS, MAX_MICROS, MIN_MICROS, MAX_MICROS);
     servo->write(degree); // init
-
-    //Serial.print(pin);
-    //Serial.print("\t");
-    //Serial.print(valArray[0]);
-    //Serial.print("\t");
-    //Serial.print(valArray[1]);
-    //Serial.print("\t");
-    //Serial.print(valArray[2]);
-    //Serial.print("\t");
-    //Serial.print(valArray[3]);
-    //Serial.println("\t");
-    //servo.attach(pin, valArray[0], valArray[1], valArray[2], valArray[3]);
-    //servo.attach(pin);
-    //delay(500);
 }
 
 HexaLeg::HexaLeg(uint8_t (*pins)[3], int * valArray, bool inversed)
@@ -62,36 +48,19 @@ HexaLeg::HexaLeg(uint8_t (*pins)[3], int * valArray, bool inversed)
         //Serial.println(buf);
 
         segments[i] = new HexaLegSegment((pins[0][i]), &valArray[arr], false/*i == SEGMENT_COXA*/, angle);
-        //if (inversed)
-        //{
-        //    segments[i]->current_angle = map(angles[i], 0, 180, 2400, 600);
-        //    segments[i]->target_angle = map(angles[i], 0, 180, 2400, 600);
-        //}
-        //else
-        {
+
             segments[i]->current_angle = map(angle, 0, 180, MIN_MICROS, MAX_MICROS);
             segments[i]->target_angle = map(angle, 0, 180, MIN_MICROS, MAX_MICROS);
-        }
-        //segments[i].current_angle = map(90, 0, 180, (&speedArr[i])[0], (&speedArr[i])[1]);
-        //segments[i].target_angle = map(90, 0, 180, (&speedArr[i])[0], (&speedArr[i])[1]);
+
         segments[i]->moveStatus = true;
         sequenceTimer[i] = 0;
     }
-
-    //AddSequence(new StandupMovement(inversed));
 }
 
 void HexaLeg::AddSequence(MovementSequence * vec)
 {
     if (sequence != NULL)
     {
-    //Serial.println("removing sequence");
-        //for (uint8_t i = 0; i < TOTAL_SEGMENTS; ++i)
-        //{
-        //    segments[i]->moveStatus = false;
-        //    sequenceTimer[i] = 0;
-        //}
-
         delete sequence;
     }
 
@@ -100,9 +69,6 @@ void HexaLeg::AddSequence(MovementSequence * vec)
     sequence = vec;
         for (uint8_t i = 0; i < TOTAL_SEGMENTS; ++i)
     sequenceTimer[i] = 0;
-    //if (sequence)
-        //sequence->Init();
-    //Serial.println(sequence.movement[0].front().angle);
 }
 
 void HexaLeg::UpdateServos()
@@ -125,18 +91,8 @@ void HexaLeg::UpdateServos()
             if (sequenceTimer[i] >= millis())
                 continue;
 
-            //Serial.print(i);
-            //Serial.print(" timer ");
-            //Serial.print((long)sequenceTimer[i]);
-            //Serial.print("\t")HJHHHHHHHHHHH;
-            //Serial.println((long)millis());
-
             if (!sequence->HasSequence(i))
-            {
-            //Serial.print(i);
-            //Serial.println(" empty");
                 continue;
-            }
 
             const Movement * move = sequence->GetNextSequence(i);
 
@@ -182,14 +138,6 @@ void HexaLeg::UpdateServos()
             {
                 int8_t direction = (servo->target_angle < servo->current_angle) ? -1 : 1;
 
-                //Serial.println(SegToText[i]);
-                //Serial.print(" tarAngle ");
-                //Serial.print((long)servo->target_angle);
-                //Serial.print("\t curAngle ");
-                //Serial.print((long)servo->current_angle);
-                //Serial.print(" ");
-                //Serial.println(direction == 1 ? "up" : "down");
-
                 servo->current_angle += direction  * servo->speedMod;
                 servo->move(servo->current_angle);
 
@@ -217,10 +165,7 @@ void HexaLeg::UpdateServos()
 void HexaLeg:: MoveSegment(uint8_t index, uint16_t angle, float speed, bool forced)
 {
     if (segments[index]->moveStatus == false && !forced)
-    {
-        //Serial.println("Movestatus false");
         return;
-}
 
     segments[index]->target_angle = angle;
     segments[index]->speedMod = speed;
@@ -230,15 +175,7 @@ void HexaLeg:: MoveSegment(uint8_t index, uint16_t angle, float speed, bool forc
 void HexaLeg:: MoveSegmentDeg(uint8_t index, uint16_t angle, float speed, bool forced)
 {
     if (segments[index]->moveStatus == false && !forced)
-    {
-        //Serial.println("Movestatus false");
         return;
-}
-
-    //if (legInversed)
-    //angle = map(angle, 180, 0, (&speedArr[index])[0], (&speedArr[index])[1]);
-    //else
-    //angle = map(angle, 0, 180, (&speedArr[index])[0], (&speedArr[index])[1]);
 
     angle = map(angle, 0, 180, MIN_MICROS, MAX_MICROS);
 
