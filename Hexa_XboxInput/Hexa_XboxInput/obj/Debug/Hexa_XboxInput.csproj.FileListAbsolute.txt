@@ -1,0 +1,14 @@
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\bin\Debug\Hexa_XboxInput.exe.config
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\obj\Debug\Hexa_XboxInput.csprojResolveAssemblyReference.cache
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\obj\Debug\Hexa_XboxInput.csproj.GenerateResource.Cache
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\bin\Debug\Hexa_XboxInput.exe
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\bin\Debug\Hexa_XboxInput.pdb
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\bin\Debug\J2i.Net.XInputWrapper.dll
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\bin\Debug\J2i.Net.XInputWrapper.pdb
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\obj\Debug\Hexa_XboxInput.Properties.Resources.resources
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\obj\Debug\Hexa_XboxInput.exe
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\obj\Debug\Hexa_XboxInput.pdb
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\bin\Debug\Microsoft.Owin.dll
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\bin\Debug\Owin.dll
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\bin\Debug\Microsoft.Owin.xml
+c:\users\spacekoz\documents\visual studio 2013\Projects\Hexa_XboxInput\Hexa_XboxInput\obj\Debug\Hexa_XboxInput.MainWindow.resources
