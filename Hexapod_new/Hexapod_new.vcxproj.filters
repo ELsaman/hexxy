@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{a89ce19c-8101-412e-9702-39f8e5479da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FastTrigo">
+      <UniqueIdentifier>{bb455eb8-9cd5-4a6b-a05d-9c103b716ce5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\ServoNew">
+      <UniqueIdentifier>{f72a317c-e76f-4d90-a175-a72a6f291ded}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Hexapod_new.ino" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Visual Micro\.Hexapod_new.vsarduino.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\FastTrigo\fasttrigo.h">
+      <Filter>lib\FastTrigo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.5.2\libraries\ServoNew\ServoNew.h">
+      <Filter>lib\ServoNew</Filter>
+    </ClInclude>
+    <ClInclude Include="SegmentServo.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lib\FastTrigo\fasttrigo.cpp">
+      <Filter>lib\FastTrigo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.5.2\libraries\ServoNew\ServoNew.cpp">
+      <Filter>lib\ServoNew</Filter>
+    </ClCompile>
+    <ClCompile Include="SegmentServo.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

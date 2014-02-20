@@ -1,0 +1,80 @@
+﻿  ServoNew.cpp
+c1xx : warning C4117: Makroname '__cplusplus' ist reserviert, '#define' wird ignoriert
+c:\hexxy\hexapod_new\visual micro\.hexapod_new.vsarduino.h(4): warning C4005: '__AVR_ATmega328P__': Makro-Neudefinition
+          Befehlszeilenargumente: siehe vorherige Definition von "__AVR_ATmega328P__"
+c:\hexxy\hexapod_new\visual micro\.hexapod_new.vsarduino.h(5): error C2007: #define-Syntax
+c:\hexxy\hexapod_new\visual micro\.hexapod_new.vsarduino.h(6): warning C4005: 'ARDUINO_MAIN': Makro-Neudefinition
+          Befehlszeilenargumente: siehe vorherige Definition von "ARDUINO_MAIN"
+c:\hexxy\hexapod_new\visual micro\.hexapod_new.vsarduino.h(7): warning C4005: '__AVR__': Makro-Neudefinition
+          Befehlszeilenargumente: siehe vorherige Definition von "__AVR__"
+c:\hexxy\hexapod_new\visual micro\.hexapod_new.vsarduino.h(9): warning C4117: Makroname '__cplusplus' ist reserviert, '#define' wird ignoriert
+c:\hexxy\hexapod_new\visual micro\.hexapod_new.vsarduino.h(16): warning C4005: '__asm__': Makro-Neudefinition
+          c:\hexxy\hexapod_new\visual micro\.hexapod_new.vsarduino.h(11): Siehe vorherige Definition von '__asm__'
+c:\arduino-1.5.2\hardware\tools\avr\lib\gcc\avr\4.3.2\include\stddef.h(214): error C2371: 'size_t': Neudefinition; unterschiedliche Basistypen
+          c:\hexxy\hexapod_new\predefined c++ types (compiler internal)(19): Siehe Deklaration von 'size_t'
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\avr\pgmspace.h(123): warning C4091: 'typedef ': Ignoriert auf der linken Seite von 'void', wenn keine Variable deklariert wurde
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(109): error C2065: 'NOT_A_PORT': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(110): error C2065: 'NOT_A_PORT': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(117): error C2065: 'NOT_A_PORT': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(118): error C2065: 'NOT_A_PORT': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(125): error C2065: 'NOT_A_PORT': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(126): error C2065: 'NOT_A_PORT': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(133): error C2065: 'PD': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(134): error C2065: 'PD': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(135): error C2065: 'PD': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(136): error C2065: 'PD': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(137): error C2065: 'PD': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(138): error C2065: 'PD': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(139): error C2065: 'PD': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(140): error C2065: 'PD': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(141): error C2065: 'PB': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(142): error C2065: 'PB': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(143): error C2065: 'PB': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(144): error C2065: 'PB': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(145): error C2065: 'PB': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(146): error C2065: 'PB': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(147): error C2065: 'PC': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(148): error C2065: 'PC': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(149): error C2065: 'PC': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(150): error C2065: 'PC': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(151): error C2065: 'PC': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(152): error C2065: 'PC': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(179): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(180): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(181): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(186): error C2065: 'TIMER2B': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(188): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(194): error C2065: 'TIMER0B': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(195): error C2065: 'TIMER0A': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(197): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(198): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(199): error C2065: 'TIMER1A': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(200): error C2065: 'TIMER1B': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(204): error C2065: 'TIMER2A': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(206): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(207): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(208): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(209): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(210): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(211): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(212): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\arduino\avr\variants\standard\pins_arduino.h(213): error C2065: 'NOT_ON_TIMER': nichtdeklarierter Bezeichner
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\stdlib.h(106): error C3646: "__ATTR_NORETURN__": Unbekannter Überschreibungsspezifizierer
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\stdlib.h(152): error C2072: 'div': Funktionsinitialisierung
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\stdlib.h(152): error C2440: 'Initialisierung': 'const char [12]' kann nicht in 'div_t (int,int)' konvertiert werden
+          Es gibt keine Konvertierungen von Funktionstypen, obwohl es Konvertierungen von Verweisen oder Zeigern in Funktionen gibt
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\stdlib.h(158): error C2072: 'ldiv': Funktionsinitialisierung
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\stdlib.h(158): error C2440: 'Initialisierung': 'const char [12]' kann nicht in 'ldiv_t (long,long)' konvertiert werden
+          Es gibt keine Konvertierungen von Funktionstypen, obwohl es Konvertierungen von Verweisen oder Zeigern in Funktionen gibt
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\stdlib.h(278): error C3646: "__ATTR_NORETURN__": Unbekannter Überschreibungsspezifizierer
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\stdlib.h(290): error C3646: "__ATTR_MALLOC__": Unbekannter Überschreibungsspezifizierer
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\stdlib.h(319): error C3646: "__ATTR_MALLOC__": Unbekannter Überschreibungsspezifizierer
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\stdlib.h(338): error C3646: "__ATTR_MALLOC__": Unbekannter Überschreibungsspezifizierer
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\math.h(336): error C2143: Syntaxfehler: Es fehlt ')' vor ':'
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\math.h(337): error C2059: Syntaxfehler: ')'
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\math.h(413): error C2143: Syntaxfehler: Es fehlt ')' vor ':'
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\math.h(414): error C2059: Syntaxfehler: ')'
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\avr\interrupt.h(110): error C2010: '[': unerwartetes Zeichen in Makro-Parameterliste
+c:\arduino-1.5.2\hardware\tools\avr\avr\include\avr\interrupt.h(110): error C2010: ']': unerwartetes Zeichen in Makro-Parameterliste
+c:\arduino-1.5.2\hardware\tools\avr\lib\gcc\avr\4.3.2\include\stdarg.h(43): error C4430: Fehlender Typspezifizierer - int wird angenommen. Hinweis: "default-int" wird von C++ nicht unterstützt.
+c:\hexxy\hexapod_new\lib\servo\servonew.cpp(48): fatal error C1083: Datei (Include) kann nicht geöffnet werden: "Servo.h": No such file or directory
