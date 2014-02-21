@@ -15,7 +15,7 @@ void MovementSequence::Init()
     int delay = 3000;
     float speed = 1.0f;
     Serial.println("MovementSequence init");
-    movement[SEGMENT_TIBIA].push_back(Movement(90, 0.3f, 0, _inversed));
+    /*movement[SEGMENT_TIBIA].push_back(Movement(90, 0.3f, 0, _inversed));
     movement[SEGMENT_FEMUR].push_back(Movement(90, 0.3f, 0, _inversed));
     movement[SEGMENT_COXA].push_back(Movement(90, 0.3f, 0, _inversed));
     bool inversed = false;
@@ -32,8 +32,10 @@ void MovementSequence::Init()
         movement[SEGMENT_TIBIA].push_back(Movement(120, 3.0f, 2000, _inversed));
         movement[SEGMENT_FEMUR].push_back(Movement(60, 3.0f, 2000, _inversed));
         movement[SEGMENT_COXA].push_back(Movement(155, 3.0f, 2000, inversed));
-    }
+    }*/
 }
+
+/* RANDOM TEST STUFF */
 
 void DebugResetMovement::Init()
 {
@@ -46,7 +48,6 @@ void DebugResetMovement::Init()
     movement[SEGMENT_TIBIA].push_back(Movement(90, 5.0f, delay, _inversed));
     movement[SEGMENT_FEMUR].push_back(Movement(90, 5.0f, delay, _inversed));
     movement[SEGMENT_COXA].push_back(Movement(90, 5.0f, delay, _inversed));
-    //return;
 
     movement[SEGMENT_TIBIA].push_back(Movement(135, 2.0f, delay, _inversed));
     movement[SEGMENT_FEMUR].push_back(Movement(80, 2.0f, delay, _inversed));

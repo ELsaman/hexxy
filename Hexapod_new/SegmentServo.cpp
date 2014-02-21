@@ -28,7 +28,7 @@ void SegmentServo::Update()
     if (!IsMoving())
         return;
 
-    int16_t delta = abs(_currentAngle - _targetAngle);
+    uint16_t delta = abs(_currentAngle - _targetAngle);
     uint16_t stepSpeedFactor = 11.0f / 3 * _speedFactor;
 
     if (delta > stepSpeedFactor)
@@ -56,13 +56,6 @@ void SegmentServo::StartMovement(uint8_t angleDeg, float speedFactor, bool infin
     _moveStatus = MOVE_STATUS_MOVING;
     _infiniteMovement = true;
 }
-
-void SegmentServo::init()
-{
-
-
-}
-
 
 //SegmentServo SEGMENTSERVO;
 

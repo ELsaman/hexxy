@@ -27,9 +27,6 @@
     <None Include="Hexapod_new.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Visual Micro\.Hexapod_new.vsarduino.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="lib\FastTrigo\fasttrigo.h">
       <Filter>lib\FastTrigo</Filter>
     </ClInclude>
@@ -45,6 +42,15 @@
     <ClInclude Include="Util.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="MovementSequence.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Movement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.Hexapod_new.vsarduino.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\FastTrigo\fasttrigo.cpp">
@@ -54,6 +60,9 @@
       <Filter>lib\ServoNew</Filter>
     </ClCompile>
     <ClCompile Include="SegmentServo.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementSequence.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

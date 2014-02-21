@@ -3,6 +3,8 @@
 #include "HexaLegSegment.h"
 #include "TripodMovement.h"
 
+#define TO_PULSE(a) map(a, 0, 180, MIN_MICROS, MAX_MICROS);
+
 //#define HEX_LEG_DEBUG
 
 HexaLegSegment::HexaLegSegment(uint8_t _pin, int * valArray, bool digital, int degree) : moveStatus(false), speedMod(1.0f), isDigital(digital), pin(_pin)
@@ -37,20 +39,16 @@ HexaLeg::HexaLeg(uint8_t (*pins)[3], int * valArray, bool inversed)
 
     for (uint8_t i = 0; i < TOTAL_SEGMENTS; ++i)
     {
-        int arr = i * 4;
-
-        uint16_t angle = angles[i];
-
-        angle = Movement::calcAngle(angle, inversed);
+        uint16_t angle = Movement::calcAngle(angles[i], inversed);
 
         //char buf[255];
         //sprintf(buf, "Inversed: %u, segment: %s, angle: %u, result: %u", inversed, SegToText[i], angles[i], angle);
         //Serial.println(buf);
 
-        segments[i] = new HexaLegSegment((pins[0][i]), &valArray[arr], false/*i == SEGMENT_COXA*/, angle);
+        segments[i] = new HexaLegSegment((pins[0][i]), &valArray[i * 4], false/*i == SEGMENT_COXA*/, angle);
 
-            segments[i]->current_angle = map(angle, 0, 180, MIN_MICROS, MAX_MICROS);
-            segments[i]->target_angle = map(angle, 0, 180, MIN_MICROS, MAX_MICROS);
+        segments[i]->current_angle = TO_PULSE(angle);
+        segments[i]->target_angle = TO_PULSE(angle);
 
         segments[i]->moveStatus = true;
         sequenceTimer[i] = 0;
@@ -67,10 +65,11 @@ void HexaLeg::AddSequence(MovementSequence * vec)
     if (vec)
         vec->Init();
     sequence = vec;
-        for (uint8_t i = 0; i < TOTAL_SEGMENTS; ++i)
-    sequenceTimer[i] = 0;
+    for (uint8_t i = 0; i < TOTAL_SEGMENTS; ++i)
+        sequenceTimer[i] = 0;
 }
 
+// Needed to enable servo movement with specific speeds
 void HexaLeg::UpdateServos()
 {
     HexaLegSegment * servo;
@@ -134,6 +133,8 @@ void HexaLeg::UpdateServos()
                 continue;
             }
 
+            // Check if we need to move further
+
             if (abs(servo->current_angle - servo->target_angle) > 11.0f / 3 *  servo->speedMod)
             {
                 int8_t direction = (servo->target_angle < servo->current_angle) ? -1 : 1;
@@ -162,6 +163,7 @@ void HexaLeg::UpdateServos()
     }
 }
 
+// Move by pulse length
 void HexaLeg:: MoveSegment(uint8_t index, uint16_t angle, float speed, bool forced)
 {
     if (segments[index]->moveStatus == false && !forced)
@@ -172,12 +174,13 @@ void HexaLeg:: MoveSegment(uint8_t index, uint16_t angle, float speed, bool forc
     segments[index]->moveStatus = true;
 }
 
+// Move by degree
 void HexaLeg:: MoveSegmentDeg(uint8_t index, uint16_t angle, float speed, bool forced)
 {
     if (segments[index]->moveStatus == false && !forced)
         return;
 
-    angle = map(angle, 0, 180, MIN_MICROS, MAX_MICROS);
+    angle = TO_PULSE(angle);
 
     segments[index]->target_angle = angle;
     segments[index]->speedMod = speed;
@@ -191,5 +194,5 @@ void HexaLeg::StopSegment(uint8_t index)
 
 void HexaLeg::SetTargetAngle(int index, int angle, bool inversed)
 {
-    segments[index]->target_angle = map(Movement::calcAngle(angle, inversed), 0, 180, MIN_MICROS, MAX_MICROS);
+    segments[index]->target_angle = TO_PULSE(Movement::calcAngle(angle, inversed));
 }
