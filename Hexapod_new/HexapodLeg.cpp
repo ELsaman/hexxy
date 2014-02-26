@@ -5,13 +5,16 @@
 #include "HexapodLeg.h"
 #include "Defines.h"
 
-HexapodLeg::HexapodLeg(uint8_t(*pins)[3], int * valArray, bool inversed) : _inversedLeg(inversed)
+HexapodLeg::HexapodLeg(uint8_t * pins, bool inversed)
 {
     for (int i = 0; i < TOTAL_SEGMENTS; ++i)
     {
-        _segments[i] = SegmentServo(pins[0][i], DEFAULT_MIN_MICROS, DEFAULT_MAX_MICROS, 90);
+        _segments[i] = SegmentServo(pins[i], DEFAULT_MIN_MICROS, DEFAULT_MAX_MICROS, 90);
         _sequenceTimer[i] = 0;
     }
+
+    _sequence = NULL;
+    _inversedLeg = inversed;
 }
 
 void HexapodLeg::StopMovement(int8_t segment /* = -1 */)
@@ -31,7 +34,8 @@ void HexapodLeg::AddSequence(MovementSequence * newSeq)
 
     if (_sequence != NULL)
         delete _sequence;
-    
+
+    newSeq->SetInversed(_inversedLeg);
     newSeq->Init();
     _sequence = newSeq;
 

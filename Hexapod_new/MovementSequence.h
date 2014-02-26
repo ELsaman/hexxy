@@ -5,7 +5,6 @@
 
 
 #include "Defines.h"
-
 #include "Movement.h"
 #include <utility.h>
 #include <unwind-cxx.h>
@@ -18,15 +17,16 @@
 //
 struct MovementSequence
 {
-    MovementSequence(bool inversed, bool infinite = false);
+    MovementSequence(bool inversed, bool infinite = false) : _inversed(inversed), _infinite(infinite) {}
     virtual ~MovementSequence() {}
 
-    virtual void Init();
+    virtual void Init() {}
 
     bool HasSequence(uint8_t index) { return !(movement[index].empty()); }
     const Movement * GetNextSequence(uint8_t index) const { return &movement[index].front(); }
     void ClearTop(uint8_t index) { movement[index].pop_front(); }
     bool IsInfinite() const { return _infinite; }
+    void SetInversed(bool inv) { _inversed = inv; }
 
 private:
     bool _infinite;

@@ -22,6 +22,9 @@
     <Filter Include="lib\ServoNew">
       <UniqueIdentifier>{f72a317c-e76f-4d90-a175-a72a6f291ded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\MovementSequence">
+      <UniqueIdentifier>{cdf831cd-b00a-49f7-8c48-12f12b2af005}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Hexapod_new.ino" />
@@ -42,13 +45,25 @@
     <ClInclude Include="Util.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="MovementSequence.h">
+    <ClInclude Include="HexapodLeg.h">
       <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementSequence.h">
+      <Filter>Quelldateien\MovementSequence</Filter>
     </ClInclude>
     <ClInclude Include="Movement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Hexapod.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Hexxy.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="Visual Micro\.Hexapod_new.vsarduino.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetedMovement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -60,6 +75,15 @@
       <Filter>lib\ServoNew</Filter>
     </ClCompile>
     <ClCompile Include="SegmentServo.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="HexapodLeg.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Hexapod.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Hexxy.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="MovementSequence.c">

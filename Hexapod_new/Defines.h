@@ -21,11 +21,11 @@ enum LegSegments
     TOTAL_SEGMENTS
 };
 
-static const char* SegToText[TOTAL_SEGMENTS] =
-{
-    "SEGMENT_COXA",
-    "SEGMENT_FEMUR",
-    "SEGMENT_TIBIA",
-};
+//static const char* SegToText[TOTAL_SEGMENTS] =
+//{
+//    "SEGMENT_COXA",
+//    "SEGMENT_FEMUR",
+//    "SEGMENT_TIBIA",
+//};
 
 #endif

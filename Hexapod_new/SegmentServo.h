@@ -36,7 +36,8 @@ class SegmentServo
  public:
 	void init();
     SegmentServo(uint8_t servoPin, uint16_t minPulse = DEFAULT_MIN_MICROS, uint16_t maxPulse = DEFAULT_MAX_MICROS, uint8_t default_angle = 90, uint8_t deviationDeg = 0);
-    SegmentServo();
+    SegmentServo() {}
+    
 
     uint16_t GetCurrentAngle() const { return _currentAngle; }
     uint16_t GetTargetAngle() const { return _targetAngle; }

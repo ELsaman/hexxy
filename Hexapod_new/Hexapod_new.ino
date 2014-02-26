@@ -1,33 +1,45 @@
 
-//#include <utility.h>
-//#include <unwind-cxx.h>
-//#include <system_configuration.h>
-//#include <StandardCplusplus.h>
-//#include <utility.h>
-//#include <unwind-cxx.h>
-//#include <system_configuration.h>
-#include "HexapodLeg.h"
+
+#include "Hexxy.h"
+#include "TargetedMovement.h"
+
+//#include "Hexapod.h"
+//#include "HexapodLeg.h"
 #include <StandardCplusplus.h>
-#include "Movement.h"
-#include "MovementSequence.h"
-#include "SegmentServo.h"
+//#include "Movement.h"
+//#include "MovementSequence.h"
+//#include "SegmentServo.h"
 #include <ServoNew.h>
-Servo myservo; 
+
+Hexxy * hexxy;
+
+unsigned long oldTime = 2L;
+unsigned long timeMS = 2L;
 
 void setup()
 {
-    myservo.attach(12);
 
+    hexxy = new Hexxy();
+
+    hexxy->Init();
+    for (uint8_t i = 0; i < LEG_COUNT; ++i)
+    {
+        MovementSequence * seq = new TargetedMovement(false, (uint16_t)90);
+        hexxy->AddSequence(i, seq);
+    }
+
+    delay(2000);
+    oldTime = micros();
 }
+
 
 void loop()
 {
-
-    //myservo.write(170,1.0f);
-    //delay(1000);
-    //myservo.write(50, 10.0f);
-    //delay(1000);
-
-  /* add main program code here */
+    timeMS = micros();
+    if (timeMS > oldTime)
+    {
+        hexxy->UpdateLegs();
+        oldTime = micros() + 5000;
+    }
 
 }

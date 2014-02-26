@@ -9,8 +9,8 @@
 class HexapodLeg
 {
 public:
-    HexapodLeg(uint8_t(*pins)[3], int * valArray, bool inversed);
 
+    HexapodLeg(uint8_t * pins, bool inversed);
     void UpdateSegments();
     void StopMovement(int8_t segment = -1);
 
@@ -24,4 +24,3 @@ private:
 };
 
 #endif
-

@@ -2,6 +2,7 @@
 #define _VSARDUINO_H_
 //Board = Arduino Mega 2560 or Mega ADK
 #define __AVR_ATmega2560__
+#define _VMDEBUG 1
 #define ARDUINO 105
 #define ARDUINO_MAIN
 #define __AVR__
@@ -36,12 +37,17 @@ extern "C" void __cxa_pure_virtual() {;}
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h" 
 #include "C:\hexxy\Hexapod_new\Hexapod_new.ino"
 #include "C:\hexxy\Hexapod_new\Defines.h"
+#include "C:\hexxy\Hexapod_new\Hexapod.cpp"
+#include "C:\hexxy\Hexapod_new\Hexapod.h"
 #include "C:\hexxy\Hexapod_new\HexapodLeg.cpp"
 #include "C:\hexxy\Hexapod_new\HexapodLeg.h"
+#include "C:\hexxy\Hexapod_new\Hexxy.cpp"
+#include "C:\hexxy\Hexapod_new\Hexxy.h"
 #include "C:\hexxy\Hexapod_new\Movement.h"
 #include "C:\hexxy\Hexapod_new\MovementSequence.c"
 #include "C:\hexxy\Hexapod_new\MovementSequence.h"
 #include "C:\hexxy\Hexapod_new\SegmentServo.cpp"
 #include "C:\hexxy\Hexapod_new\SegmentServo.h"
+#include "C:\hexxy\Hexapod_new\TargetedMovement.h"
 #include "C:\hexxy\Hexapod_new\Util.h"
 #endif
