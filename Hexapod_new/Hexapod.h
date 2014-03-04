@@ -36,7 +36,12 @@ public:
     virtual void Init() {}
     virtual void SetupLegs();
     virtual void UpdateLegs();
-    virtual void AddSequence(uint8_t legID, MovementSequence * sequence) { _legs[legID]->AddSequence(sequence); }
+    virtual void AddSequence(uint8_t legID, MovementSequence * sequence)
+    {
+        Serial.print("Leg ");
+        Serial.println(legID); _legs[legID]->AddSequence(sequence);
+    }
+    //virtual void SetTargetAngle(uint8_t legID, uint16_t angle) { _legs[legID]->}
 
 };
 

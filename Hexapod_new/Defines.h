@@ -9,8 +9,8 @@ enum MoveStatus
 
 enum Pulses
 {
-    DEFAULT_MIN_MICROS          = 550,
-    DEFAULT_MAX_MICROS          = 2400
+    DEFAULT_MIN_MICROS          = 400,
+    DEFAULT_MAX_MICROS          = 2500
 };
 
 enum LegSegments

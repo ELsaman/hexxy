@@ -60,10 +60,10 @@
     <ClInclude Include="Hexxy.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Visual Micro\.Hexapod_new.vsarduino.h">
+    <ClInclude Include="TargetedMovement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="TargetedMovement.h">
+    <ClInclude Include="Visual Micro\.Hexapod_new.vsarduino.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

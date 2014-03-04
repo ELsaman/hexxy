@@ -3,18 +3,22 @@
 // 
 
 #include "SegmentServo.h"
+#include "Arduino.h"
 
 SegmentServo::SegmentServo(uint8_t servoPin, uint16_t minPulse, uint16_t maxPulse, uint8_t default_angle, uint8_t deviation) : _minPulseWidth(minPulse), _maxPulseWidth(maxPulse)
 {
+
     _servo.attach(servoPin);
 
     uint16_t defWidth = CalcPulseWidth(default_angle);
 
     _currentAngle = defWidth;
     _targetAngle = defWidth;
+    _speedFactor = 1.0f;
 
     deviation = CalcPulseWidth(deviation);
 
+    _infiniteMovement = false;
     _moveStatus = MOVE_STATUS_MOVING;
 }
 
@@ -28,22 +32,51 @@ void SegmentServo::Update()
     if (!IsMoving())
         return;
 
-    uint16_t delta = abs(_currentAngle - _targetAngle);
-    uint16_t stepSpeedFactor = 11.0f / 3 * _speedFactor;
+    bool done = false;
+    float speedFkt = 11.0f / 3.0f * _speedFactor;
 
-    if (delta > stepSpeedFactor)
+    if (abs(_currentAngle - _targetAngle) > speedFkt)
     {
-        int8_t direction = delta > 1 ? -1 : 1;
+        int8_t direction = (_targetAngle < _currentAngle) ? -1 : 1;
 
-        _currentAngle += direction * _speedFactor;
-        delta -= _speedFactor;
+        _currentAngle += direction  * _speedFactor;
         _servo.writeMicroseconds(_currentAngle);
+
+        if (!_infiniteMovement &&  abs(_currentAngle - _targetAngle) <= speedFkt)
+            done = true;
+    } else if (!_infiniteMovement)
+        done = true;
+
+    if (done)
+    {
+        _moveStatus = MOVE_STATUS_STOPPED;
+
+#ifdef HEX_LEG_DEBUG
+        Serial.print(SegToText[i]);
+        Serial.println(" done");
+#endif
     }
 
-    // stop if we're near the target angle
-    // infinite = receiving data from controller
-    if (!_infiniteMovement && delta < stepSpeedFactor)
-        _moveStatus = MOVE_STATUS_STOPPED;
+
+    //long delta = _currentAngle - _targetAngle;
+    //long deltaAbs = abs(delta);
+    //uint16_t stepSpeedFactor = 11.0f / 3.0f * _speedFactor;
+    //
+    //
+    //if (deltaAbs > stepSpeedFactor)
+    //{
+    //    int8_t direction = delta < 1 ? -1 : 1;
+    //
+    //    _currentAngle += direction * _speedFactor;
+    //
+    //    deltaAbs -= _speedFactor;
+    //    _servo.writeMicroseconds(_currentAngle);
+    //}
+    //
+    //// stop if we're near the target angle
+    //// infinite = receiving data from controller
+    //if (!_infiniteMovement && deltaAbs < stepSpeedFactor)
+    //    _moveStatus = MOVE_STATUS_STOPPED;
 }
 
 void SegmentServo::StartMovement(uint8_t angleDeg, float speedFactor, bool infinite, bool forced)
@@ -54,7 +87,7 @@ void SegmentServo::StartMovement(uint8_t angleDeg, float speedFactor, bool infin
     SetTargetAngle(angleDeg);
     _speedFactor = speedFactor > 0.0f ? speedFactor : 1.0f;
     _moveStatus = MOVE_STATUS_MOVING;
-    _infiniteMovement = true;
+    _infiniteMovement = infinite;
 }
 
 //SegmentServo SEGMENTSERVO;

@@ -26,6 +26,7 @@ struct MovementSequence
     const Movement * GetNextSequence(uint8_t index) const { return &movement[index].front(); }
     void ClearTop(uint8_t index) { movement[index].pop_front(); }
     bool IsInfinite() const { return _infinite; }
+    bool IsInversed() const { return _inversed; }
     void SetInversed(bool inv) { _inversed = inv; }
 
 private:

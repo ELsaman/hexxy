@@ -4,9 +4,16 @@
 
 #include "HexapodLeg.h"
 #include "Defines.h"
+#include "Arduino.h"
 
 HexapodLeg::HexapodLeg(uint8_t * pins, bool inversed)
 {
+    //uint8_t angles[3] =
+    //{
+    //    90,
+    //    180,
+    //    10
+    //};
     for (int i = 0; i < TOTAL_SEGMENTS; ++i)
     {
         _segments[i] = SegmentServo(pins[i], DEFAULT_MIN_MICROS, DEFAULT_MAX_MICROS, 90);
@@ -61,12 +68,22 @@ void HexapodLeg::UpdateSegments()
                 continue;
 
             if (!_sequence->HasSequence(i))
+            {
+                //Serial.println("no sequence");
                 continue;
+            }
 
             const Movement * move = _sequence->GetNextSequence(i);
 
             if (!move)
+            {
+
+                //Serial.println("no next sequence");
                 continue;
+            }
+
+
+            //Serial.println("all good");
 
             segment->StartMovement(move->angle, move->speed, _sequence->IsInfinite(), true);
 
