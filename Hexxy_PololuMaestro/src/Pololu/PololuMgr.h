@@ -18,6 +18,7 @@ enum PololuCommands
     CMD_GET_ERROR_BYTE                  = 0x82,
     CMD_GET_CONFIG                      = 0x83,
     CMD_SET_CONFIG                      = 0x84,
+    CMD_REMOVE_MSB                      = 0xF
 };
 
 class PololuMgr
@@ -30,6 +31,7 @@ public:
     }
 
     void setServoValue(uint8_t servoId, uint16_t value);
+    void setServoValueSSC(uint8_t servoId, uint8_t value);
 
     void Init()
     {

@@ -2,10 +2,11 @@
 #define INPUT_MGR_H
 
 #include "Arduino.h"
+#include "IKCalculator.h"
 
 struct InputState
 {
-    InputState() : _angle(0.0f), _speedFkt(0.0f), _rotation(0.0f) {}
+    InputState() : _speedX(0.0f), _speedY(0.0f), _rotation() {}
     //InputState(float angle, float speed, float rotation) : _angle(angle), _speedFkt(speed), _rotation(rotation) {}
 
     /// <summary>
@@ -14,21 +15,25 @@ struct InputState
     /// <param name="angleDeg">Strafe movement angle in degrees.</param>
     /// <param name="speedX10">Movement speed * 10.</param>
     /// <param name="rotationDeg">Body rotation angle in degrees.</param>
-    InputState(uint16_t angleDeg, uint16_t speedX10, uint16_t rotationDeg)
+    InputState(float speedX, float speedY, IKBodyMods bodyMod) : _speedX(speedX), _speedY(speedY)
     {
-        _angle = float(angleDeg) * DEG_TO_RAD;
-        _speedFkt = float(speedX10) / 10.0f;
-        _rotation = float(rotationDeg) * DEG_TO_RAD;
+        //_angle = angle;
+        //_speedFkt = speed;
+        _rotation = bodyMod;
     }
 
-    float getAngle() { return _angle; }
-    float getSpeedFkt() { return _speedFkt; }
-    float getRotation() { return _rotation; }
+    float getSpeedX() { return _speedX; }
+    float getSpeedY() { return _speedY; }
+
+    //float getAngle() { return _angle; }
+    //float getSpeedFkt() { return _speedFkt; }
+    IKBodyMods & getRotation() { return _rotation; }
 
 private:
-    float _angle;
-    float _speedFkt;
-    float _rotation;
+    float _speedX;
+    float _speedY;
+    //float _speedFkt;
+    IKBodyMods _rotation;
 };
 
 class InputMgr

@@ -3,12 +3,15 @@
 
 #include "Util.h"
 #include <StandardCplusplus.h>
+#include "SoftwareSerial.h"
 #include <vector>
 
 enum InputCommands
 {
     COMMAND_DCTA,
     COMMAND_DCTC,
+    COMMAND_DCTP,
+    COMMAND_DCTH,
     COMMAND_MODE,
     COMMAND_GAIT,
     COMMAND_TOTAL
@@ -18,6 +21,8 @@ static const char commandChars[COMMAND_TOTAL][5] =
 {
     "DCTA",
     "DCTC",
+    "DCTP",
+    "DCTH",
     "MODE",
     "GAIT"
 };
@@ -45,7 +50,7 @@ private:
     void readNumData(std::vector<char*> &output);
 
     int8_t readLine(int readch, char *buffer, int len);
-    SerialMgr() {};
+    SerialMgr();
     ~SerialMgr() {};
 };
 

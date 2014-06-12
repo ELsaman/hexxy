@@ -1,11 +1,19 @@
 #include "SerialMgr.h"
 #include "InputMgr.h"
+#include "IKCalculator.h"
 #include "Arduino.h"
 #include "Util.h"
 
+SerialMgr::SerialMgr()
+{
+    Serial3.begin(38400);
+}
+
 void SerialMgr::Update()
 {
-    if (readLine(Serial.read(), buffer, 255) > 0)
+    if (!Serial3.available())
+        return;
+    if (readLine(Serial3.read(), buffer, 255) > 0)
         parseLine();
 }
 
@@ -18,7 +26,7 @@ void SerialMgr::parseLine()
     {
         if (strcmp(command, commandChars[i]) == 0)
         {
-            DEBUG_LOG(LOG_TYPE_COMM, "Handling command %s", commandChars[i]);
+            //DEBUG_LOG(LOG_TYPE_COMM, "Handling command %s", commandChars[i]);
             handleCommand(InputCommands(i));
             return;
         }
@@ -59,21 +67,49 @@ void SerialMgr::handleCommand(InputCommands cmd)
     {
         case COMMAND_DCTA:
         {
-            if (parsed.size() != 5)
+            if (parsed.size() > 4 || parsed.size() < 2)
                 return; // TODO: error handling
 
-            
+            //float angle = float(atof(parsed[0]) * DEG_TO_RAD);
+            float speedX = atof(parsed[0]);
+            float speedY = atof(parsed[1]);
 
-            float angle = float(atof(parsed[0]) * DEG_TO_RAD);
-            float speed = float(atof(parsed[1]) / 10.0f);
+            //float speed = float(atof(parsed[1]) / 10.0f);
             bool hasRotation = bool(atoi(parsed[2]));
             float rotation = 0.0f;
             if (hasRotation)
                  rotation = float(atof(parsed[3]) * DEG_TO_RAD);
 
-            sInputMgr.setCurrentState(InputState(angle, speed, rotation));
+            sInputMgr.setCurrentState(InputState(speedX, speedY, IKBodyMods()));
             //DEBUG_LOG(LOG_TYPE_COMM, "DCTA angle: %f, speed: %f, rotation: %f", angle, speed, rotation);
             
+            break;
+        }
+        case COMMAND_DCTP:
+            // RotX RotY RotZ PosX PosY
+        {
+            if (parsed.size() != 6)
+            {
+                DEBUG_LOG(LOG_TYPE_COMM, "DCTP: Invalid options count: %u", parsed.size());
+                return;
+            }
+
+            IKBodyMods mods = IKBodyMods();
+            mods.rotX = atof(parsed[0]);
+            mods.rotY = atof(parsed[1]);
+            mods.rotZ = atof(parsed[2]);
+            mods.posX = atoi(parsed[3]);
+            mods.posY = atoi(parsed[4]);
+
+            sInputMgr.setCurrentState(InputState(0.0f, 0.0f, mods));
+
+
+            //DEBUG_LOG(LOG_TYPE_COMM, "DCTP: pitch: 0.%d", );
+
+            break;
+        }
+        case COMMAND_DCTH:
+        {
             break;
         }
         case COMMAND_DCTC:

@@ -13,6 +13,6 @@ void DEBUG_LOG(LogType type, const char * format, ...)
     va_start(args, format);
     vsprintf(buffer, format, args);
     va_end(args);
-    Serial.println(buffer);
+    Serial3.println(buffer);
 #endif
 }

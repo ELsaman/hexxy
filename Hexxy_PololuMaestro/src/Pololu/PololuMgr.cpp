@@ -17,3 +17,15 @@ void PololuMgr::setServoValue(uint8_t servoId, uint16_t value)
 
     _serial->write(buffer, ARRAY_SIZE(buffer));
 }
+
+// OxFF, Servo number, servo value (0 - 255)
+void PololuMgr::setServoValueSSC(uint8_t servoId, uint8_t value)
+{
+    byte buffer[3] = { 0 };
+
+    buffer[0] = 0xFF;
+    buffer[1] = servoId;
+    buffer[2] = value;
+
+    _serial->write(buffer, ARRAY_SIZE(buffer));
+}

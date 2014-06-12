@@ -3,6 +3,8 @@
 
 #include "Arduino.h"
 
+#define DEBUG_OUTPUT
+
 #define ARRAY_SIZE(x) ((sizeof x) / (sizeof *x))
 
 
