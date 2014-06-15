@@ -67,12 +67,15 @@ void SerialMgr::handleCommand(InputCommands cmd)
     {
         case COMMAND_DCTA:
         {
-            if (parsed.size() > 4 || parsed.size() < 2)
+            if (parsed.size() > 5 || parsed.size() < 2)
+            {
+                DEBUG_LOG(LOG_TYPE_COMM, "DCTA parsing error, size: %d", parsed.size());
                 return; // TODO: error handling
+            }
 
             //float angle = float(atof(parsed[0]) * DEG_TO_RAD);
-            float speedX = atof(parsed[0]);
-            float speedY = atof(parsed[1]);
+            int speedX = atoi(parsed[0]);
+            int speedY = atoi(parsed[1]);
 
             //float speed = float(atof(parsed[1]) / 10.0f);
             bool hasRotation = bool(atoi(parsed[2]));
@@ -81,7 +84,7 @@ void SerialMgr::handleCommand(InputCommands cmd)
                  rotation = float(atof(parsed[3]) * DEG_TO_RAD);
 
             sInputMgr.setCurrentState(InputState(speedX, speedY, IKBodyMods()));
-            //DEBUG_LOG(LOG_TYPE_COMM, "DCTA angle: %f, speed: %f, rotation: %f", angle, speed, rotation);
+//            DEBUG_LOG(LOG_TYPE_COMM, "DCTA angle: %d, speed: %d, rotation: %f", speedX, speedY);
             
             break;
         }

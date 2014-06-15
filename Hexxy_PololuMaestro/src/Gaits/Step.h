@@ -20,7 +20,7 @@ struct PhaseStep
     Position pos;
 };
 
-#define SPEED_MOD       2
+#define SPEED_MOD       1
 
 static const PhaseStep phaseSteps[STEP_PHASE_CNT + 1] = 
 {
@@ -41,10 +41,11 @@ public:
     void CalcStepPerTick();
 
 //private:
+    uint8_t _startPhase;
     float oldSpeedX;
     float oldSpeedY;
     uint16_t tickCnt;
-    uint8_t phase; 
+    int8_t phase; 
     uint8_t ticksPerPhase[STEP_PHASE_CNT];
     StepPosition valPerTick[STEP_PHASE_CNT]; // X, Y, Z per tick
 };

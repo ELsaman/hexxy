@@ -1,0 +1,22 @@
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.csprojResolveAssemblyReference.cache
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.Properties.Resources.resources
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.csproj.GenerateResource.Cache
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\HexxyXboxController_Bluetooth.exe
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\HexxyXboxController_Bluetooth.pdb
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.exe
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.pdb
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\HexxyXboxController_Bluetooth.exe.config
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\SharpDX.dll
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\SharpDX.XInput.dll
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\SharpDX.xml
+C:\Users\Spacekoz\Documents\Visual Studio 2013\Projects\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\SharpDX.XInput.xml
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\HexxyXboxController_Bluetooth.exe.config
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.exe
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.pdb
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\HexxyXboxController_Bluetooth.exe
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\HexxyXboxController_Bluetooth.pdb
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\SharpDX.xml
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\bin\Debug\SharpDX.XInput.xml
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.csprojResolveAssemblyReference.cache
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.Properties.Resources.resources
+C:\Users\Koz\Desktop\HexxyXboxController_Bluetooth\HexxyXboxController_Bluetooth\obj\Debug\HexxyXboxController_Bluetooth.csproj.GenerateResource.Cache

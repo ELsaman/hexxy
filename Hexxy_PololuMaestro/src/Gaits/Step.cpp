@@ -2,18 +2,20 @@
 #include "Util.h"
 #include "InputMgr.h"
 
-LegStep::LegStep(uint8_t startPhase) : phase(startPhase), tickCnt(0), oldSpeedX(0.0f), oldSpeedY(0.0f)
+LegStep::LegStep(uint8_t startPhase) : phase(startPhase), tickCnt(0), oldSpeedX(0.0f), oldSpeedY(0.0f), _startPhase(startPhase)
 {
     //CalcStepPerTick();
     //memset(valPerTick, 0, sizeof(valPerTick));
 
+    //CalcSpeed();
+    //return;
     CalcSpeed();
     return;
-
     InputState * state = sInputMgr.getCurrentState();
 
-    float speedX = 5.0f * state->getSpeedX();
-    float speedY = 5.0f * state->getSpeedY();
+
+    float speedX = 5.0f;
+    float speedY = 5.0f;
     float speedR = 0.0f;
 
     if (speedX < 1.0f || speedY < 1.0f)
@@ -38,12 +40,32 @@ bool LegStep::CalcSpeed()
 {
     InputState * state = sInputMgr.getCurrentState();
 
-    float speedX = 10.0f * state->getSpeedX();
-    float speedY = 10.0f * state->getSpeedY();
+    if (!state->isMoving())
+    {
+        phase = -1;
+        //DEBUG_LOG(LOG_TYPE_COMM, "Calculating Speed: X: %d, Y: %d", (int)speedX, (int)speedY);
+        return false;
+    }
+
+
+
+    float speedX = state->getSpeedX();
+    float speedY = state->getSpeedY();
+
+
+
+    //DEBUG_LOG(LOG_TYPE_COMM, "Calculating Speed: X: %d, Y: %d", (int)speedX, (int)speedY);
+
+    speedX = 30.0f * speedX / 100.0f;
+    speedY = 30.0f * speedY / 100.0f;
+    //DEBUG_LOG(LOG_TYPE_COMM, "Calculated Speed: X: %d, Y: %d", (int)speedX, (int)speedY);
     float speedR = 0.0f;
 
     if (oldSpeedX == speedX && oldSpeedY == speedY)
         return false;
+
+
+    DEBUG_LOG(LOG_TYPE_COMM, "Moving %d", _startPhase);
 
     oldSpeedX = speedX;
     oldSpeedY = speedY;
@@ -108,13 +130,35 @@ void LegStep::CalcStepPerTick()
 
 void LegStep::Update()
 {
+ 
     if (phase >= 3)
-        phase = 0;
-    
-    CalcSpeed();
+    {
+        if (CalcSpeed())
+            phase = 0;
+    }
+    if (phase < 0)
+    {
+        if (CalcSpeed())
+            phase = _startPhase;
 
-    if (fabs(oldSpeedX) < 1.0f && fabs(oldSpeedY) < 1.0f)
+    }
+
+    if (!sInputMgr.getCurrentState()->isMoving())
+    {
+        if (phase >= 0)
+        {
+            DEBUG_LOG(LOG_TYPE_COMM, "Stopped %d", _startPhase);
+            phase = -1;
+        }
         return;
+    }
+
+
+    
+    //CalcSpeed();
+
+    //if (fabs(oldSpeedX) < 1.0f && fabs(oldSpeedY) < 1.0f)
+      //  return;
 
     if (tickCnt >= ticksPerPhase[phase])
     {
@@ -128,6 +172,14 @@ void LegStep::Update()
 
 void LegStep::GetCurrentPos(int &x, int &y, int &z)
 {
+    if (phase < 0)
+    {
+        x = phaseSteps[_startPhase].pos.x;
+        y = phaseSteps[_startPhase].pos.y;
+        z = phaseSteps[_startPhase].pos.z;
+        return;
+    }
+
     x = phaseSteps[phase].pos.x;
     y = phaseSteps[phase].pos.y;
     z = phaseSteps[phase].pos.z;
