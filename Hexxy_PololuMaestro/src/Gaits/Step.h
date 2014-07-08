@@ -20,12 +20,12 @@ struct PhaseStep
     Position pos;
 };
 
-#define SPEED_MOD       1
+#define SPEED_MOD       3
 
-static const PhaseStep phaseSteps[STEP_PHASE_CNT + 1] = 
+static const PhaseStep phaseSteps[STEP_PHASE_CNT + 1] =
 {
     { 1000 / SPEED_MOD, { 10, 10, 0 } },
-    { 1000 / SPEED_MOD, { 0, 0, -70 } },
+    { 1000 / SPEED_MOD, { 0, 10, -60 } },
     { 2000 / SPEED_MOD, { -10, -10, 0 } },
     { 1000 / SPEED_MOD, { 10, 10, 0 } },
 };
@@ -33,20 +33,26 @@ static const PhaseStep phaseSteps[STEP_PHASE_CNT + 1] =
 class LegStep
 {
 public:
-    LegStep(uint8_t startPhase = 0);
+    LegStep(uint8_t startPhase = 0, int xMod = 0);
+    void Init();
     void Update();
-    void Reset() { phase = 0; }
+    //void Reset() { phase = 0; }
     void GetCurrentPos(int &x, int &y, int &z);
+    void GetCurrentPos(int(&pos)[3]) { GetCurrentPos(pos[0], pos[1], pos[2]); };
     bool CalcSpeed();
     void CalcStepPerTick();
 
-//private:
+    //private:
+
+    bool logging;
+
+    int8_t phase;
     uint8_t _startPhase;
     float oldSpeedX;
     float oldSpeedY;
-    uint16_t tickCnt;
-    int8_t phase; 
-    uint8_t ticksPerPhase[STEP_PHASE_CNT];
+    int tickCnt;
+    int ticksPerPhase[4];
+    int _xMod;
     StepPosition valPerTick[STEP_PHASE_CNT]; // X, Y, Z per tick
 };
 

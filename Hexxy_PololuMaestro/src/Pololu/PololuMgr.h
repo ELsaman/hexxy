@@ -9,7 +9,7 @@ enum
 {
     PIN_POLOLU_TX       = 8,
     PIN_POLOLU_RX       = 9,
-    POLOLU_PIN          = 115200
+    POLOLU_PIN          = 115385
 };
 
 enum PololuCommands
@@ -39,7 +39,8 @@ public:
 
 
 private:
-    SoftwareSerial * _serial;
+    HardwareSerial * _serial;
+    //SoftwareSerial * _serial;
     PololuMgr();
     ~PololuMgr() {}
 };

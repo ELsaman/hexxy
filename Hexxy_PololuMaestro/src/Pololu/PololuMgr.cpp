@@ -2,8 +2,10 @@
 
 PololuMgr::PololuMgr()
 {
-    _serial = new SoftwareSerial(PIN_POLOLU_RX, PIN_POLOLU_TX, false);
+    _serial = &Serial2;
     _serial->begin(POLOLU_PIN);
+    //_serial = new SoftwareSerial(PIN_POLOLU_RX, PIN_POLOLU_TX, false);
+    //_serial->begin(POLOLU_PIN);
 }
 
 void PololuMgr::setServoValue(uint8_t servoId, uint16_t value)

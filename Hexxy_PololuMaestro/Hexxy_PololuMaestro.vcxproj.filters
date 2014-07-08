@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="ft.h" />
+    <ClInclude Include="SerialMgr.h">
+      <Filter>Serial</Filter>
+    </ClInclude>
+    <ClInclude Include="PololuMgr.h">
+      <Filter>Pololu</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="GaitSequencer.h">
+      <Filter>Gaits\Sequencer</Filter>
+    </ClInclude>
+    <ClInclude Include="Gait.h">
+      <Filter>Gaits</Filter>
+    </ClInclude>
+    <ClInclude Include="IKCalculator.h">
+      <Filter>Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="InputMgr.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Step.h" />
+    <ClInclude Include="Visual Micro\.Hexxy_PololuMaestro.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Hexxy_PololuMaestro.ino" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Gaits">
+      <UniqueIdentifier>{f1744637-7995-4ede-a6d1-a0adbba6f85e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pololu">
+      <UniqueIdentifier>{435b97a6-3c83-4dfa-8977-9907332b2d37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Serial">
+      <UniqueIdentifier>{99ca252a-9173-4ec3-aae8-5f6cd622dcf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{0986488a-74a2-43d0-aa65-d80b1ad82ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gaits\Sequencer">
+      <UniqueIdentifier>{d15d7cf9-5844-42cc-8ceb-5ff4f3f339ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kinematics">
+      <UniqueIdentifier>{eed20ba3-2894-4e8b-98c9-eaa11cc11632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{f86fa562-e8b6-40f6-bf5b-d1c578544945}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ft.cpp" />
+    <ClCompile Include="SerialMgr.cpp">
+      <Filter>Serial</Filter>
+    </ClCompile>
+    <ClCompile Include="PololuMgr.cpp">
+      <Filter>Pololu</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="GaitSequencer.cpp">
+      <Filter>Gaits\Sequencer</Filter>
+    </ClCompile>
+    <ClCompile Include="TripodGait.cpp">
+      <Filter>Gaits</Filter>
+    </ClCompile>
+    <ClCompile Include="IKCalculator.cpp">
+      <Filter>Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="InputMgr.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Step.cpp" />
+  </ItemGroup>
+</Project>

@@ -15,23 +15,24 @@ struct InputState
     /// <param name="angleDeg">Strafe movement angle in degrees.</param>
     /// <param name="speedX10">Movement speed * 10.</param>
     /// <param name="rotationDeg">Body rotation angle in degrees.</param>
-    InputState(int speedX, int speedY, IKBodyMods bodyMod) : _speedX(speedX), _speedY(speedY)
+    InputState(int speedX, int speedY, IKBodyMods bodyMod) : _speedX(speedX), _speedY(speedY), _rotation(bodyMod)
     {
         //_angle = angle;
         //_speedFkt = speed;
-        _rotation = bodyMod;
+        //_rotation = bodyMod;
     }
 
-    int getSpeedX() { return _speedX; }
-    int getSpeedY() { return _speedY; }
+    int getSpeedX() const { return _speedX; }
+    int getSpeedY() const { return _speedY; }
 
-    bool isMoving()
+    bool isMoving() const
     {
+        return true;
         return abs(_speedX) > 20 || abs(_speedY) > 20;
     }
     //float getAngle() { return _angle; }
     //float getSpeedFkt() { return _speedFkt; }
-    IKBodyMods & getRotation() { return _rotation; }
+    const IKBodyMods * getRotation()  { return &_rotation; }
 
 private:
     int _speedX;

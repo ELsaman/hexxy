@@ -8,7 +8,7 @@
 
 #define LENGTH_COXA     35 // coxa -> femur
 #define LENGTH_FEMUR    100
-#define LENGTH_TIBIA    130
+#define LENGTH_TIBIA    150
 
 enum Segments
 {
@@ -17,6 +17,17 @@ enum Segments
     SEGMENT_TIBIA,
     SEGMENT_MAX
 };
+
+enum LegIds
+{
+    LEG_RIGHT_FRONT,
+    LEG_RIGHT_MIDDLE,
+    LEG_RIGHT_BACK,
+    LEG_LEFT_FRONT,
+    LEG_LEFT_MIDDLE,
+    LEG_LEFT_BACK
+};
+
 
 struct Position
 {
@@ -31,15 +42,6 @@ struct LegOffset
     int Y;
 };
 
-enum
-{
-    LEG_RIGHT_FRONT,
-    LEG_RIGHT_MIDDLE,
-    LEG_RIGHT_BACK,
-    LEG_LEFT_FRONT,
-    LEG_LEFT_MIDDLE,
-    LEG_LEFT_BACK
-};
 
 
 #endif

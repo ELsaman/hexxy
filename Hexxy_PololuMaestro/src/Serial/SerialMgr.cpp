@@ -6,7 +6,7 @@
 
 SerialMgr::SerialMgr()
 {
-    Serial3.begin(38400);
+    //Serial3.begin(CONTROLLER_BAUD);
 }
 
 void SerialMgr::Update()
@@ -26,7 +26,7 @@ void SerialMgr::parseLine()
     {
         if (strcmp(command, commandChars[i]) == 0)
         {
-            //DEBUG_LOG(LOG_TYPE_COMM, "Handling command %s", commandChars[i]);
+            DEBUG_LOG(LOG_TYPE_COMM, "Handling command %s", commandChars[i]);
             handleCommand(InputCommands(i));
             return;
         }
@@ -73,15 +73,17 @@ void SerialMgr::handleCommand(InputCommands cmd)
                 return; // TODO: error handling
             }
 
-            //float angle = float(atof(parsed[0]) * DEG_TO_RAD);
+            //float angle = float(atof(parsed[0]) * DEG_TO_RAD_F);
             int speedX = atoi(parsed[0]);
             int speedY = atoi(parsed[1]);
 
             //float speed = float(atof(parsed[1]) / 10.0f);
-            bool hasRotation = bool(atoi(parsed[2]));
+            bool hasRotation = atoi(parsed[2]) ? true : false;
             float rotation = 0.0f;
             if (hasRotation)
-                 rotation = float(atof(parsed[3]) * DEG_TO_RAD);
+                 rotation = float(atof(parsed[3]) * DEG_TO_RAD_F);
+
+            //DEBUG_LOG(LOG_TYPE_COMM, "Got DCTA: %d, %d", speedX, speedY);
 
             sInputMgr.setCurrentState(InputState(speedX, speedY, IKBodyMods()));
 //            DEBUG_LOG(LOG_TYPE_COMM, "DCTA angle: %d, speed: %d, rotation: %f", speedX, speedY);
@@ -98,13 +100,13 @@ void SerialMgr::handleCommand(InputCommands cmd)
             }
 
             IKBodyMods mods = IKBodyMods();
-            mods.rotX = atof(parsed[0]);
-            mods.rotY = atof(parsed[1]);
-            mods.rotZ = atof(parsed[2]);
+            mods.rotX = atoi(parsed[0]) * DEG_TO_RAD_F;
+            mods.rotY = atoi(parsed[1]) * DEG_TO_RAD_F;
+            mods.rotZ = atoi(parsed[2]) * DEG_TO_RAD_F;
             mods.posX = atoi(parsed[3]);
             mods.posY = atoi(parsed[4]);
-
-            sInputMgr.setCurrentState(InputState(0.0f, 0.0f, mods));
+            DEBUG_LOG(LOG_TYPE_COMM, "rot: %s %d", parsed[1], int(mods.rotY * 100.0f));
+            sInputMgr.setCurrentState(InputState(0, 0, mods));
 
 
             //DEBUG_LOG(LOG_TYPE_COMM, "DCTP: pitch: 0.%d", );
@@ -127,6 +129,7 @@ void SerialMgr::handleCommand(InputCommands cmd)
 
 int8_t SerialMgr::readLine(int readch, char *buffer, int len)
 {
+    //DEBUG_LOG(LOG_TYPE_COMM, "got char %s", String((char)readch).c_str());
     static int pos = 0;
     int rpos;
 
@@ -135,8 +138,10 @@ int8_t SerialMgr::readLine(int readch, char *buffer, int len)
         switch (readch)
         {
             case '\n': // Ignore new-lines
+                //DEBUG_LOG(LOG_TYPE_COMM, "got newline");
                 break;
             case '\r': // Return on CR
+                //DEBUG_LOG(LOG_TYPE_COMM, "got carriage return");
                 rpos = pos;
                 pos = 0;  // Reset position index ready for next time
                 return rpos;

@@ -8,62 +8,69 @@
 #include "Common.h"
 #include "Defines.h"
 #include "Step.h"
-
-#define PC_SERIAL_BAUD      38400
+#include "Util.h"
 
 //#define XDIFF       0
 //#define YDIFF       150
 IKBodyMods oldMods = IKBodyMods();
 
-#define XDIFF       0
+#define XDIFF       -50
 #define YDIFF       100
+#define YDIFF_M       125
 
 #define OFF_Y_N         55
-#define OFF_Y_M         OFF_Y_N + 25
+#define OFF_Y_M         80
 #define OFF_X           94
 #define HEIGHT          90
 
 
 // each leg's default position
-static const Position endp[LEG_COUNT] = 
+static const Position END_POSITIONS[LEG_COUNT] = 
 {
     { XDIFF,     YDIFF,     HEIGHT},  // LEG_RIGHT_FRONT
-    { 0,         YDIFF,     HEIGHT},  // LEG_RIGHT_MIDDLE
-    { -XDIFF,     YDIFF,     HEIGHT},  // LEG_RIGHT_BACK
+    { 0,         YDIFF_M,     HEIGHT},  // LEG_RIGHT_MIDDLE
+    { -XDIFF,    YDIFF,     HEIGHT},  // LEG_RIGHT_BACK
     { XDIFF,    -YDIFF,     HEIGHT},  // LEG_LEFT_FRONT
-    { 0,        -YDIFF,     HEIGHT},  // LEG_LEFT_MIDDLE
-    { -XDIFF,    -YDIFF,     HEIGHT}   // LEG_LEFT_BACK
+    { 0,        -YDIFF_M,     HEIGHT},  // LEG_LEFT_MIDDLE
+    { -XDIFF,   -YDIFF,     HEIGHT}   // LEG_LEFT_BACK
 };
 
 
 // Coxa offset from robot centre
-static const LegOffset legOffsets[LEG_COUNT] =
+static const LegOffset LEG_OFFSETS[LEG_COUNT] =
 {
     { +OFF_X,   +OFF_Y_N},
-    {      0,   +OFF_Y_N + 25},
+    {      0,   +OFF_Y_M },
     { -OFF_X,   +OFF_Y_N},
     { +OFF_X,   -OFF_Y_N},
-    {      0,   -OFF_Y_N - 25},
+    {      0,   -OFF_Y_M},
     { -OFF_X,   -OFF_Y_N}
 };
 
-LegStep * step;
-LegStep * stepRev;
+LegStep * fwdStep;
+LegStep * revStep;
+
+
+int oldX, oldY, oldZ = 1;
+uint8_t positionBuffer[LEG_COUNT][SEGMENT_MAX] = { 0 };
+uint8_t oldPosBuffer[LEG_COUNT][SEGMENT_MAX] = { 0 };
+unsigned long updateTimer = 0;
+
 void setup()
 {
-
-  /* add setup code here */
     Serial.begin(PC_SERIAL_BAUD);
-  
-  oldMods.rotZ = 10.0f;
+    Serial3.begin(CONTROLLER_BAUD);
+    //sSerialMgr.instance();
 
-  delay(1000);
-  
-  step = new LegStep();
-  stepRev = new LegStep(2);
+    //oldMods.rotZ = 10.0f;
+
+    delay(3000);
+
+    fwdStep = new LegStep(0);
+    revStep = new LegStep(2);
+
+    oldX = oldY = 0;
 }
-
-long updateTimer = 0;
 
 
 
@@ -76,189 +83,202 @@ bool normalize(int &angle)
     return false;
 }
 
-float oldX, oldY, oldZ;
+
+
+int fwdPos[3] = { 0 };
+int revPos[3] = { 0 };
 
 void loop()
 {
 
     if (updateTimer <= millis())
     {
-            IKBodyMods mods = sInputMgr.getCurrentState()->getRotation();
-            
-            step->Update();
-            stepRev->Update();
-            int x, y, z;
-            step->GetCurrentPos(x, y, z);
-            int x1, y1, z1;
-            stepRev->GetCurrentPos(x1, y1, z1);
+        const InputState * state = sInputMgr.getCurrentState();
+        const IKBodyMods * mods = sInputMgr.getCurrentState()->getRotation();
 
-            //if (mods.rotZ != oldMods.rotZ)
-            if (oldX != x || oldY != y || oldZ != z)
+        // Simple tripod movement implementation
+        // Use 2 steps generators
+        fwdStep->Update();
+        revStep->Update();
+        fwdStep->GetCurrentPos(fwdPos);
+        revStep->GetCurrentPos(revPos);
+
+        //bool hasRotation = fabs(mods->rotX) > 0.0f || fabs(mods->rotY) > 0.0f || fabs(mods->rotZ) > 0.0f ;
+
+        // Iterate through all leg and calculate positions. Send data to pololu if the coordinates changed
+        //if (hasRotation)
+        {
+            bool reverse = false;
+
+            for (uint8_t legNum = LEG_RIGHT_FRONT; legNum < LEG_COUNT; ++legNum)
             {
+                // 1, 3, 5 on the same leg group
+                int * pos = legNum % 2 ? revPos : fwdPos;
+                DoKinematics((LegIds)legNum, pos[0], pos[1], pos[2], mods);
+            }
 
-                //Serial.println();
-                for (int i = 0; i < LEG_COUNT; ++i)
+            // send the data
+            uint8_t val = 0;
+            for (uint8_t legNum = LEG_RIGHT_FRONT; legNum < LEG_COUNT; ++legNum)
+            {
+                for (uint8_t seg = SEGMENT_COXA; seg < SEGMENT_MAX; ++seg)
                 {
-                    oldMods = mods;
-                    IKBodyMods mods2 = mods;
-                    Position body;
-                    IKLegAngles angles;
 
-                    //mods2.rotZ = mods.rotZ;
-                    //mods2.rotY = mods.rotZ;
-                    //mods2.rotX = mods.rotZ;
-                    //mods2.posY = 50;
-                    float rotZ = 0; // *DEG_TO_RAD;
+                    val = positionBuffer[legNum][seg];
 
-                    bool rev = i % 2;
-                    int stepX = rev ? x : x1;
-                    int stepY = rev ? y : y1;
-                    int stepZ = rev ? z : z1;
+                   //if (val >= 180 || val <=  0)
+                   //    val = oldPosBuffer[legNum][seg];
 
-
-                    //stepX = 0;
-                    //stepY = 0;
-                    //stepZ = 0;
-
-                    int endX = endp[i].x;
-                    int endY = endp[i].y;
-                    int endZ = endp[i].z;
-                    
-                    body = IKCalculator::bodyIK(endX + stepX, endY + stepX, endZ + stepZ, legOffsets[i], mods2, rotZ);
-
-                    float localTransform = 0.0f;
-
-                    switch (i)
+                    if (val != oldPosBuffer[legNum][seg])
                     {
-                        case LEG_RIGHT_FRONT:
-                            localTransform = -30.0f;
-                            endX = endX + body.x + stepX;
-                            endY = endY + body.y + stepY;
-                            endZ = endZ + body.z + stepZ;
-                            break;
-                        case LEG_RIGHT_MIDDLE:
-                            endX = endX + body.x + stepX;
-                            endY = endY + body.y + stepY;
-                            endZ = endZ + body.z + stepZ;
-                            break;
-                        case LEG_RIGHT_BACK:
-                            localTransform = 30.0f;
-                            endX = -endX - body.x - stepX;
-                            endY = endY + body.y + stepY;
-                            endZ = endZ + body.z + stepZ;
-                            break;
-                        case LEG_LEFT_FRONT:
-                            localTransform = 30.0f;
-                            endX = endX + body.x + stepX;
-                            endY = -endY - body.y - stepY;
-                            endZ = endZ + body.z + stepZ;
-                            break;
-                        case LEG_LEFT_MIDDLE:
-                            endX = endX + body.x + stepX;
-                            endY = -endY - body.y - stepY;
-                            endZ = endZ + body.z + stepZ;
-                            break;
-                        case LEG_LEFT_BACK:
-                            localTransform = -30.0f;
-                            endX = -endX - body.x - stepX;
-                            endY = -endY - body.y - stepY;
-                            endZ = endZ + body.z + stepZ;
-                            break;
+                        //if (legNum == 0 && seg == 0)
+                            //DEBUG_LOG(LOG_TYPE_COMM, "Leg 1 coxa %d", val);
+                        oldPosBuffer[legNum][seg] = val;
+                        sPololuMgr.setServoValueSSC(legPins[legNum][seg], val);
                     }
-
-                    
-                    //if (localTransform)
-                    //{
-                    //    localTransform *= DEG_TO_RAD;
-                    //    double cosA = cos(localTransform);
-                    //    double sinA = sin(localTransform);
-                    //    //DEBUG_LOG(LOG_TYPE_COMM, "before X: %d, Y: %d, Z: %d", endX, endY, endZ);
-                    //
-                    //    endX = endY * cosA + endX * sinA;
-                    //    endY = endX * cosA - endY * sinA;
-                    //    //DEBUG_LOG(LOG_TYPE_COMM, "after X: %d, Y: %d, Z: %d", endX, endY, endZ);
-                    //}
-
-                    angles = IKCalculator::legsIK(endX, endY, endZ);
-
-                    //angles.coxa += HALF_PI;
-                    angles.femur += HALF_PI;
-                    angles.tibia += HALF_PI;
-
-                    // Half pi = middle position
-                    switch (i)
-                    {
-                        case LEG_RIGHT_FRONT:
-                            angles.coxa = HALF_PI + angles.coxa;
-                            break;
-                        case LEG_RIGHT_MIDDLE:
-                            angles.coxa = HALF_PI + angles.coxa;
-                            break;
-                        case LEG_RIGHT_BACK:
-                            angles.coxa = HALF_PI - angles.coxa;
-                            break;
-                        case LEG_LEFT_FRONT:
-                            angles.coxa = HALF_PI - angles.coxa;
-                            break;
-                        case LEG_LEFT_MIDDLE:
-                            angles.coxa = HALF_PI - angles.coxa;
-                            break;
-                        case LEG_LEFT_BACK:
-                            angles.coxa = HALF_PI + angles.coxa;
-                            break;
-                    }
-                    
-                    if (i > 2)
-                    {
-                        //angles.coxa = M_PI - angles.coxa;
-                        angles.femur = M_PI - angles.femur;
-                        
-                        if (i != 5)
-                            angles.tibia = M_PI - angles.tibia;
-                    }
-
-
-
-                    int coxa = static_cast<float>(RAD_TO_DEG)* angles.coxa;
-                    int femur = static_cast<float>(RAD_TO_DEG)* angles.femur;
-                    int tibia = static_cast<float>(RAD_TO_DEG)* angles.tibia;
-                    
-                    if (normalize(coxa))
-                        break;
-                    if (normalize(femur))
-                        break;
-                    if (normalize(tibia))
-                        break;
-
-                    //DEBUG_LOG(LOG_TYPE_COMM, "Step %d Leg %u Position: x %d, y %d, z %d", stepX, i, endX, endY, endZ);
-                    //DEBUG_LOG(LOG_TYPE_COMM, "Coxa %u Position: x %d, y %d, z %d", i, body.x, body.y, body.z);
-                    //DEBUG_LOG(LOG_TYPE_COMM, "Leg %u Angles: Coxa: %d, Femur: %d, Tibia: %d", i, coxa, femur, tibia);
-
-                    int coxaVal = map(coxa, 0, 180, 0, 255);
-                    int femurVal = map(femur, 0, 180, 0, 255);
-                    int tibiaVal = map(tibia, 0, 180, 0, 255);
-
-                    
-                    //if (i == 1)
-                    //    femurVal = 254;
-                    //else if (i == 4)
-                    //    femurVal = 0;
-
-                    sPololuMgr.setServoValueSSC(legPins[i][SEGMENT_COXA], coxaVal);
-                    sPololuMgr.setServoValueSSC(legPins[i][SEGMENT_FEMUR], femurVal);
-                    sPololuMgr.setServoValueSSC(legPins[i][SEGMENT_TIBIA], tibiaVal);
-
-                    //Serial.println();
                 }
             }
 
-            //step->Update();
-            //int x, y, z;
-            //step->GetCurrentPos(x, y, z);
-            //DEBUG_LOG(LOG_TYPE_COMM, "%u Position: x %d, y %d, z %d", step->tickCnt, x, y, z);
-        //Serial.println();
-            updateTimer = millis() + 20;
+        }
+        updateTimer = millis() + UPDATE_TIMER;
     }
-        sSerialMgr.Update();
 
+    // Process input commands etc
+    //DEBUG_LOG(LOG_TYPE_MOVEMENT, "blabla");
+    sSerialMgr.Update();
+}
+
+void DoKinematics(LegIds legNum, int StepX, int StepY, int StepZ, const IKBodyMods * bodyMods)
+{
+    int endX = END_POSITIONS[legNum].x;
+    int endY = END_POSITIONS[legNum].y;
+    int endZ = END_POSITIONS[legNum].z;
+
+
+    int stepMod = 0;//;-int(float(abs(StepX)));
+
+    switch (legNum)
+    {
+        case LEG_RIGHT_FRONT:
+            StepX += stepMod;
+            break;
+        case LEG_RIGHT_MIDDLE:
+            break;
+        case LEG_RIGHT_BACK:
+            StepX -= stepMod;
+            break;
+        case LEG_LEFT_FRONT:
+            StepX += stepMod;
+            break;
+        case LEG_LEFT_MIDDLE:
+            break;
+        case LEG_LEFT_BACK:
+            StepX -= stepMod;
+            break;
+    }
+
+    float rotZ = 0.0f; // NYI
+
+    // Calculate coxa position relative to body center (rotation matrix)
+    Position body = IKCalculator::bodyIK(endX + StepX, endY + StepY, endZ + StepZ, LEG_OFFSETS[legNum], *bodyMods, rotZ);
+
+    // Now change global (body) to local (leg) coordinates
+    float localTransform = 0.0f;
+    switch (legNum)
+    {
+        case LEG_RIGHT_FRONT:
+            localTransform = 30.0f;
+            endX = endX + body.x + StepX;
+            endY = endY + body.y + StepY;
+            endZ = endZ + body.z + StepZ;
+            break;
+        case LEG_RIGHT_MIDDLE:
+            endX = endX + body.x + StepX;
+            endY = endY + body.y + StepY;
+            endZ = endZ + body.z + StepZ;
+            //DEBUG_LOG(LOG_TYPE_COMM, "X: %d Y: %d Z: %d", en);
+            break;
+        case LEG_RIGHT_BACK:
+            localTransform = 30.0f;
+            endX = -endX - body.x - StepX;
+            endY = endY + body.y + StepY;
+            endZ = endZ + body.z + StepZ;
+            break;
+        case LEG_LEFT_FRONT:
+            localTransform = 30.0f;
+            endX = endX + body.x + StepX;
+            endY = -endY - body.y - StepY;
+            endZ = endZ + body.z + StepZ;
+            break;
+        case LEG_LEFT_MIDDLE:
+            endX = endX + body.x + StepX;
+            endY = -endY - body.y - StepY;
+            endZ = endZ + body.z + StepZ;
+            break;
+        case LEG_LEFT_BACK:
+            localTransform = 30.0f;
+            endX = -endX - body.x - StepX;
+            endY = -endY - body.y - StepY;
+            endZ = endZ + body.z + StepZ;
+            break;
+    }
+    //if (legNum == 0)
+        //DEBUG_LOG(LOG_TYPE_COMM, "X: %d Y: %d Z: %d", 0, 0, StepZ);
+
+    IKLegAngles angles = IKCalculator::legsIK(endX, endY, endZ);
+
+    angles.coxa += localTransform * DEG_TO_RAD_F;
+    angles.femur += HALF_PI_F;
+    angles.tibia += HALF_PI_F;
+
+    // Half pi = middle position
+    switch (legNum)
+    {
+        case LEG_RIGHT_FRONT:
+            angles.coxa = HALF_PI_F + angles.coxa;
+            break;
+        case LEG_RIGHT_MIDDLE:
+            angles.coxa = HALF_PI_F + angles.coxa;
+            break;
+        case LEG_RIGHT_BACK:
+            angles.coxa = HALF_PI_F - angles.coxa;
+            break;
+        case LEG_LEFT_FRONT:
+            angles.coxa = HALF_PI_F - angles.coxa;
+            break;
+        case LEG_LEFT_MIDDLE:
+            angles.coxa = HALF_PI_F - angles.coxa;
+            break;
+        case LEG_LEFT_BACK:
+            angles.coxa = HALF_PI_F + angles.coxa;
+            break;
+    }
+
+    // left side - correct femur angles (invert)
+    if (legNum > LEG_RIGHT_BACK)
+    {
+        angles.femur = PI_F - angles.femur;
+        angles.tibia = PI_F - angles.tibia;
+    }
+
+    // convert from radians to degrees
+    for (uint8_t seg = SEGMENT_COXA; seg < SEGMENT_MAX; ++seg)
+    {
+
+        float angle = float(angles.getAngle(seg) * RAD_TO_DEG_F);
+
+        // normalize the angle if the value is out of bounds (0 - 180)
+        if (angle > 180.0f)
+        {
+            DEBUG_LOG(LOG_TYPE_MOVEMENT, "Angle larger than 180 deg (%d) for Leg: %u (%s), Segment %u (%s)", (int)angle, (uint8_t)legNum, legNames[(uint8_t)legNum], seg, segmentNames[seg]);
+            angle = 180.0f;
+        } else if (angle < 0.0f)
+        {
+            DEBUG_LOG(LOG_TYPE_MOVEMENT, "Angle smaller than 0 deg (%d) for Leg: %u (%s), Segment %u (%s)", (int)angle, (uint8_t)legNum, legNames[(uint8_t)legNum], seg, segmentNames[seg]);
+            angle = 0.0f;
+        }
+
+        // convert to values accepted by Pololu (SSC Protocol: 0-255 range)
+        positionBuffer[legNum][seg] = uint8_t(map((long)angle, 0, 180, 0, 255));
+    }
 }
