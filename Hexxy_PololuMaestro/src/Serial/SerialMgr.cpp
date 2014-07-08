@@ -6,7 +6,7 @@
 
 SerialMgr::SerialMgr()
 {
-    //Serial3.begin(CONTROLLER_BAUD);
+    Serial3.begin(38400);
 }
 
 void SerialMgr::Update()
@@ -26,7 +26,7 @@ void SerialMgr::parseLine()
     {
         if (strcmp(command, commandChars[i]) == 0)
         {
-            DEBUG_LOG(LOG_TYPE_COMM, "Handling command %s", commandChars[i]);
+            //DEBUG_LOG(LOG_TYPE_COMM, "Handling command %s", commandChars[i]);
             handleCommand(InputCommands(i));
             return;
         }
@@ -83,9 +83,12 @@ void SerialMgr::handleCommand(InputCommands cmd)
             if (hasRotation)
                  rotation = float(atof(parsed[3]) * DEG_TO_RAD_F);
 
+            IKBodyMods mods = IKBodyMods();
+            mods.rotZ = rotation;
+
             //DEBUG_LOG(LOG_TYPE_COMM, "Got DCTA: %d, %d", speedX, speedY);
 
-            sInputMgr.setCurrentState(InputState(speedX, speedY, IKBodyMods()));
+            sInputMgr.setCurrentState(InputState(speedX, speedY, mods));
 //            DEBUG_LOG(LOG_TYPE_COMM, "DCTA angle: %d, speed: %d, rotation: %f", speedX, speedY);
             
             break;
@@ -105,7 +108,7 @@ void SerialMgr::handleCommand(InputCommands cmd)
             mods.rotZ = atoi(parsed[2]) * DEG_TO_RAD_F;
             mods.posX = atoi(parsed[3]);
             mods.posY = atoi(parsed[4]);
-            DEBUG_LOG(LOG_TYPE_COMM, "rot: %s %d", parsed[1], int(mods.rotY * 100.0f));
+            //DEBUG_LOG(LOG_TYPE_COMM, "rot: %s %d", parsed[1], int(mods.rotY * 100.0f));
             sInputMgr.setCurrentState(InputState(0, 0, mods));
 
 

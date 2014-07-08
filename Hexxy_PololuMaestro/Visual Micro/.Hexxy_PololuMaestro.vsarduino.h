@@ -39,31 +39,30 @@ typedef unsigned char byte;
 extern "C" void __cxa_pure_virtual() {;}
 
 //
-bool normalize(int &angle);
 //
-void DoKinematics(LegIds legNum, int StepX, int StepY, int StepZ, const IKBodyMods * bodyMods);
+void DoKinematics(LegIds legNum, int StepX, int StepY, int StepZ, const IKBodyMods * bodyMods, float rotZ);
 
 #include "c:\Program Files (x86)\arduino\hardware\arduino\cores\arduino\arduino.h"
 #include "c:\Program Files (x86)\arduino\hardware\arduino\variants\mega\pins_arduino.h" 
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\Hexxy_PololuMaestro.ino"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\Common.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\Defines.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\Gait.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\GaitSequencer.cpp"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\GaitSequencer.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\IKCalculator.cpp"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\IKCalculator.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\InputMgr.cpp"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\InputMgr.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\PololuMgr.cpp"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\PololuMgr.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\SerialMgr.cpp"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\SerialMgr.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\Step.cpp"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\Step.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\TripodGait.cpp"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\Util.cpp"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\Util.h"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\ft.cpp"
-#include "C:\hexxy_temp\Temp_hexxy\Hexxy_PololuMaestro\ft.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\Hexxy_PololuMaestro.ino"
+#include "C:\hexxy\Hexxy_PololuMaestro\Common.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\Defines.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\Gait.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\GaitSequencer.cpp"
+#include "C:\hexxy\Hexxy_PololuMaestro\GaitSequencer.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\IKCalculator.cpp"
+#include "C:\hexxy\Hexxy_PololuMaestro\IKCalculator.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\InputMgr.cpp"
+#include "C:\hexxy\Hexxy_PololuMaestro\InputMgr.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\PololuMgr.cpp"
+#include "C:\hexxy\Hexxy_PololuMaestro\PololuMgr.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\SerialMgr.cpp"
+#include "C:\hexxy\Hexxy_PololuMaestro\SerialMgr.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\Step.cpp"
+#include "C:\hexxy\Hexxy_PololuMaestro\Step.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\TripodGait.cpp"
+#include "C:\hexxy\Hexxy_PololuMaestro\Util.cpp"
+#include "C:\hexxy\Hexxy_PololuMaestro\Util.h"
+#include "C:\hexxy\Hexxy_PololuMaestro\ft.cpp"
+#include "C:\hexxy\Hexxy_PololuMaestro\ft.h"
 #endif

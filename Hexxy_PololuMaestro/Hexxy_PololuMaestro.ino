@@ -72,19 +72,6 @@ void setup()
     oldX = oldY = 0;
 }
 
-
-
-int tim = 0;
-
-bool normalize(int &angle)
-{
-    if (angle <= 0 || angle >= 180)
-        return true;
-    return false;
-}
-
-
-
 int fwdPos[3] = { 0 };
 int revPos[3] = { 0 };
 
@@ -114,7 +101,8 @@ void loop()
             {
                 // 1, 3, 5 on the same leg group
                 int * pos = legNum % 2 ? revPos : fwdPos;
-                DoKinematics((LegIds)legNum, pos[0], pos[1], pos[2], mods);
+
+                DoKinematics((LegIds)legNum, pos[0], pos[1], pos[2], mods, 0.0f);
             }
 
             // send the data
@@ -125,9 +113,6 @@ void loop()
                 {
 
                     val = positionBuffer[legNum][seg];
-
-                   //if (val >= 180 || val <=  0)
-                   //    val = oldPosBuffer[legNum][seg];
 
                     if (val != oldPosBuffer[legNum][seg])
                     {
@@ -144,40 +129,16 @@ void loop()
     }
 
     // Process input commands etc
-    //DEBUG_LOG(LOG_TYPE_MOVEMENT, "blabla");
     sSerialMgr.Update();
 }
 
-void DoKinematics(LegIds legNum, int StepX, int StepY, int StepZ, const IKBodyMods * bodyMods)
+void DoKinematics(LegIds legNum, int StepX, int StepY, int StepZ, const IKBodyMods * bodyMods, float rotZ)
 {
     int endX = END_POSITIONS[legNum].x;
     int endY = END_POSITIONS[legNum].y;
     int endZ = END_POSITIONS[legNum].z;
 
-
-    int stepMod = 0;//;-int(float(abs(StepX)));
-
-    switch (legNum)
-    {
-        case LEG_RIGHT_FRONT:
-            StepX += stepMod;
-            break;
-        case LEG_RIGHT_MIDDLE:
-            break;
-        case LEG_RIGHT_BACK:
-            StepX -= stepMod;
-            break;
-        case LEG_LEFT_FRONT:
-            StepX += stepMod;
-            break;
-        case LEG_LEFT_MIDDLE:
-            break;
-        case LEG_LEFT_BACK:
-            StepX -= stepMod;
-            break;
-    }
-
-    float rotZ = 0.0f; // NYI
+    //float rotZ = 0.0f; // NYI
 
     // Calculate coxa position relative to body center (rotation matrix)
     Position body = IKCalculator::bodyIK(endX + StepX, endY + StepY, endZ + StepZ, LEG_OFFSETS[legNum], *bodyMods, rotZ);

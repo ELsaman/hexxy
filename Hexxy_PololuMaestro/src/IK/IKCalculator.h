@@ -86,26 +86,6 @@ public:
         d2 = 2 * LENGTH_TIBIA*LENGTH_FEMUR;
         ans.tibia = (acos((float)d1 / (float)d2) - 1.57);
 
-        //// first, make this a 2DOF problem... by solving coxa
-        //ans.coxa = atan2(X, Y);
-        ////ans.coxa = radToServo(atan2(X, Y));
-        //long trueX = sqrt(sq(X) + sq(Y)) - LENGTH_COXA;
-        //long im = sqrt(sq(trueX) + sq(Z));    // length of imaginary leg
-        //
-        //// get femur angle above horizon...
-        //float q1 = -atan2(Z, trueX);
-        //long d1 = sq(LENGTH_FEMUR) - sq(LENGTH_TIBIA) + sq(im);
-        //long d2 = 2 * LENGTH_FEMUR*im;
-        //float q2 = acos((float)d1 / (float)d2);
-        //ans.femur = q1 + q2;
-        ////ans.femur = radToServo(q1 + q2);
-        //
-        //// and tibia angle from femur...
-        //d1 = sq(LENGTH_FEMUR) - sq(im) + sq(LENGTH_TIBIA);
-        //d2 = 2 * LENGTH_TIBIA*LENGTH_FEMUR;
-        //ans.tibia = acos((float)d1 / (float)d2) - 1.57;
-        ////ans.tibia = radToServo(acos((float)d1 / (float)d2) - 1.57);
-
         return ans;
     }
 };

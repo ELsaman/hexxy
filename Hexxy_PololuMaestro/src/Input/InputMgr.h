@@ -27,7 +27,6 @@ struct InputState
 
     bool isMoving() const
     {
-        return true;
         return abs(_speedX) > 20 || abs(_speedY) > 20;
     }
     //float getAngle() { return _angle; }

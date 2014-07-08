@@ -25,7 +25,7 @@ struct PhaseStep
 static const PhaseStep phaseSteps[STEP_PHASE_CNT + 1] =
 {
     { 1000 / SPEED_MOD, { 10, 10, 0 } },
-    { 1000 / SPEED_MOD, { 0, 10, -60 } },
+    { 1000 / SPEED_MOD, { 0, 0, -40 } },
     { 2000 / SPEED_MOD, { -10, -10, 0 } },
     { 1000 / SPEED_MOD, { 10, 10, 0 } },
 };

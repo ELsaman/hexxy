@@ -13,7 +13,7 @@
 #define ARRAY_SIZE(x) ((sizeof x) / (sizeof *x))
 
 #define PC_SERIAL_BAUD      115200
-#define CONTROLLER_BAUD  9600
+#define CONTROLLER_BAUD  38400
 
 enum LogType
 {

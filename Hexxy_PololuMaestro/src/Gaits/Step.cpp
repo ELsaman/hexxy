@@ -27,8 +27,8 @@ bool LegStep::CalcSpeed()
     }
 
 
-    float speedX = 6.0f;// (float)state->getSpeedX();
-    float speedY = 0.0f; //(float)state->getSpeedY();
+    float speedX = (float)state->getSpeedX() * 0.07f;
+    float speedY = (float)state->getSpeedY() * 0.04f;
     float speedR = 0.0f;
 
 
@@ -48,7 +48,7 @@ bool LegStep::CalcSpeed()
         tick.x = float(phaseSteps[i + 1].pos.x - phaseSteps[i].pos.x) * speedX / (float)ticksPerPhase[i];
         tick.y = float(phaseSteps[i + 1].pos.y - phaseSteps[i].pos.y) * speedY / (float)ticksPerPhase[i];
         tick.z = float(phaseSteps[i + 1].pos.z - phaseSteps[i].pos.z) / (float)ticksPerPhase[i];
-        DEBUG_LOG(LOG_TYPE_COMM, "phase: %d ticks: %d, step 0.%d", i, ticksPerPhase[i], int(tick.z * 100.0f));
+        //DEBUG_LOG(LOG_TYPE_COMM, "phase: %d ticks: %d, step 0.%d", i, ticksPerPhase[i], int(tick.z * 100.0f));
         //DEBUG_LOG(LOG_TYPE_COMM, "phase: %d ticks: %d,", i, ticksPerPhase[i]);
     }
 
@@ -60,7 +60,6 @@ void LegStep::Update()
     //return;
     if (phase == -1)
     {
-        DEBUG_LOG(LOG_TYPE_COMM, "phase: -1");
         if (CalcSpeed())
             phase = _startPhase;
     } else if (!sInputMgr.getCurrentState()->isMoving())
@@ -81,12 +80,11 @@ void LegStep::Update()
             phase = 0;
         else
             ++phase;
-        //DEBUG_LOG()
 
-        //if (phase == _startPhase)
-        //CalcSpeed();
+        if (phase == _startPhase)
+            CalcSpeed();
 
-        DEBUG_LOG(LOG_TYPE_COMM, "%d new phase  %d, %d", phaseTemp, phase, ticksPerPhase[phase]);
+        //DEBUG_LOG(LOG_TYPE_COMM, "%d new phase  %d, %d", phaseTemp, phase, ticksPerPhase[phase]);
     } else ++tickCnt;
 }
 
@@ -100,7 +98,6 @@ void LegStep::GetCurrentPos(int &x, int &y, int &z)
 {
     if (phase == -1)
     {
-        DEBUG_LOG(LOG_TYPE_COMM, "phase: -1");
         x = phaseSteps[_startPhase].pos.x + _xMod;
         y = phaseSteps[_startPhase].pos.y;
         z = phaseSteps[_startPhase].pos.z;
@@ -113,7 +110,6 @@ void LegStep::GetCurrentPos(int &x, int &y, int &z)
 
     if (phase >= STEP_PHASE_CNT)
     {
-        DEBUG_LOG(LOG_TYPE_COMM, "phase: >max");
         return;
     }
 
